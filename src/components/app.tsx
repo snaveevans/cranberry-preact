@@ -9,9 +9,9 @@ import Home from "../routes/home";
 import Profile from "../routes/profile";
 
 const App = () => (
-  <div id="app">
+  <div class="min-h-screen">
     <Header />
-    <main>
+    <main class="flex pt-14 my-0 md:mx-auto justify-center items-center mx-8 max-w-5xl">
       <Router>
         <Route path="/" component={Home} />
         <Route path="/profile/" component={Profile} user="me" />

@@ -1,16 +1,8 @@
 import { h } from "preact";
 
 const Navigation = () => (
-  <nav
-    style={{
-      position: "sticky",
-      bottom: "0",
-      left: "0",
-      right: "0",
-      backgroundColor: "#673ab8",
-    }}
-  >
-    <ul>
+  <nav className="font-bold sticky bottom-0 bg-purple-700 text-white">
+    <ul className="flex gap-8">
       <li>Products</li>
       <li>Scan</li>
     </ul>
