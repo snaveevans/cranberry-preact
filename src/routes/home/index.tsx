@@ -44,7 +44,7 @@ const Resource = (props: ResourceProps) => {
   return (
     <a
       href={props.link}
-      class="py-3 px-6 rounded text-left decoration-inherit no-underline text-white bg-neutral-900"
+      class="py-3 px-6 rounded text-left decoration-inherit no-underline text-white bg-neutral-900 border border-neutral-900 hover:border-white"
     >
       <h2>{props.title}</h2>
       <p>{props.description}</p>
