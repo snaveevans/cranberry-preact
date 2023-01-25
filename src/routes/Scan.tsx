@@ -94,7 +94,7 @@ const Scan = () => {
 
   return (
     <div ref={setRoot} class="w-full h-full">
-      <video ref={setVideo} class={state !== "video" && "hidden"} />
+      <video ref={setVideo} class={state !== "video" && "hidden"} allowFullScreen={false} />
       <img ref={setPhoto} class={state !== "photo" && "hidden"} />
       <canvas ref={setCanvas} class="hidden" />
       <button
