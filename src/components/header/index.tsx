@@ -1,6 +1,7 @@
 import { h } from "preact";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
+import { Link } from "preact-router";
 
 type Props = {
   class?: string;
@@ -20,7 +21,9 @@ const Header = ({ class: className }: Props) => {
         value={searchText}
         placeholder="Search for indredients..."
       />
-      <i class="fa-solid fa-camera text-white items-center flex text-4xl mr-2" />
+      <Link href="/scan" class="mr-2 flex">
+        <i class="fa-solid fa-camera text-white items-center flex text-4xl" />
+      </Link>
     </header>
   );
 };

@@ -7,6 +7,7 @@
     "build": "preact build",
     "serve": "sirv build --cors --single",
     "dev": "preact watch",
+    "dev:secure": "preact watch --https",
     "lint": "eslint src",
     "test": "jest"
   },
