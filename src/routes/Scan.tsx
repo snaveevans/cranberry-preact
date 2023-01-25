@@ -1,32 +1,34 @@
 import clsx from "clsx";
 import { h } from "preact";
-import { useRef, useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 type State = "video" | "photo";
 
 const Scan = () => {
   const [state, setState] = useState<State>("video");
+  const [root, setRoot] = useState<HTMLDivElement>();
   const [tracks, setTracks] = useState<MediaStreamTrack[]>();
-  const videoRef = useRef<HTMLVideoElement>();
-  const canvasRef = useRef<HTMLCanvasElement>();
-  const photoRef = useRef<HTMLImageElement>();
-  const width = 320;
+  const [video, setVideo] = useState<HTMLVideoElement>();
+  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
+  const [photo, setPhoto] = useState<HTMLImageElement>();
 
   useEffect(() => {
+    if (!video) {
+      return;
+    }
     // TODO why is this needed for safari
     // a delay of some sort is required from the stream being set
     // and the play getting called
     if (!tracks) {
-      videoRef.current.pause();
+      video.pause();
       return;
     }
 
-    videoRef.current.play();
-  }, [tracks]);
+    video.play();
+  }, [tracks, video]);
 
   useEffect(() => {
-    if (state === "photo") {
-      // we have already captured the photo
+    if (state === "photo" || !video || !root) {
       return;
     }
 
@@ -34,13 +36,17 @@ const Scan = () => {
     navigator.mediaDevices
       .getUserMedia({
         audio: false,
-        video: { facingMode: "environment" },
+        video: {
+          facingMode: "environment",
+          height: root.clientHeight,
+          width: root.clientWidth,
+        },
       })
       .then((stream) => {
-        if (!videoRef.current) {
+        if (!video) {
           return;
         }
-        videoRef.current.srcObject = stream;
+        video.srcObject = stream;
         setTracks(stream.getTracks());
       });
 
@@ -50,22 +56,21 @@ const Scan = () => {
           return;
         }
 
-        console.debug("cleaning up");
         cur.forEach((track) => {
           track.stop();
         });
         return undefined;
       });
     };
-  }, [state]);
+  }, [state, video, root]);
 
   const clearPhoto = () => {
-    const context = canvasRef.current.getContext("2d");
+    const context = canvas.getContext("2d");
     context.fillStyle = "#AAA";
-    context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
-    const data = canvasRef.current.toDataURL("image/png");
-    photoRef.current.setAttribute("src", data);
+    const data = canvas.toDataURL("image/png");
+    photo.setAttribute("src", data);
   };
 
   const handleClick = () => {
@@ -75,27 +80,23 @@ const Scan = () => {
       return;
     }
 
-    const context = canvasRef.current.getContext("2d");
-    const height =
-      (videoRef.current.videoHeight / videoRef.current.videoWidth) * width;
-    if (width && height) {
-      canvasRef.current.width = width;
-      canvasRef.current.height = height;
-      context.drawImage(videoRef.current, 0, 0, width, height);
+    const context = canvas.getContext("2d");
+    const height = video.videoHeight;
+    const width = video.videoWidth;
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(video, 0, 0, width, height);
 
-      const data = canvasRef.current.toDataURL("image/png");
-      photoRef.current.setAttribute("src", data);
-      setState("photo");
-    } else {
-      clearPhoto();
-    }
+    const data = canvas.toDataURL("image/png");
+    photo.setAttribute("src", data);
+    setState("photo");
   };
 
   return (
-    <div class="w-full h-full">
-      <video ref={videoRef} class={state !== "video" && "hidden"} />
-      <img ref={photoRef} class={state !== "photo" && "hidden"} />
-      <canvas ref={canvasRef} class="hidden" />
+    <div ref={setRoot} class="w-full h-full">
+      <video ref={setVideo} class={state !== "video" && "hidden"} />
+      <img ref={setPhoto} class={state !== "photo" && "hidden"} />
+      <canvas ref={setCanvas} class="hidden" />
       <button
         onClick={handleClick}
         class="rounded-full fixed z-50 block bg-purple-700 p-3 -translate-y-1/2 -translate-x-1/2 left-1/2 bottom-8 h-16 w-16 flex justify-center items-center"
