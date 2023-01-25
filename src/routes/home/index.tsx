@@ -2,18 +2,12 @@ import { h } from "preact";
 
 const Home = () => {
   return (
-    <div class="text-center">
-      <a href="https://preactjs.com">
-        <img
-          class="p-6"
-          src="../../assets/preact-logo.svg"
-          alt="Preact Logo"
-          height="160"
-          width="160"
-        />
-      </a>
-      <h1>Get Started Building PWAs with Preact-CLI</h1>
-      <section class="mt-40 grid gap-4 lg:grid-cols-3">
+    <div>
+      <header class="prose prose-invert">
+        <h1>Welcome to Cranberry!</h1>
+        <p>We are here to help you make healthier choices.</p>
+      </header>
+      <section class="mt-8 grid gap-4 lg:grid-cols-3 text-center">
         <Resource
           title="Learn Preact"
           description="If you're new to Preact, try the interactive tutorial to learn important concepts"

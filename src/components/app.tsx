@@ -9,16 +9,16 @@ import Home from "../routes/home";
 import Profile from "../routes/profile";
 
 const App = () => (
-  <div class="min-h-screen">
-    <Header />
-    <main class="flex pt-14 my-0 md:mx-auto justify-center items-center mx-8 max-w-5xl">
+  <div class="h-screen flex flex-col gap-4">
+    <Header class="flex-none" />
+    <main class="flex-auto flex py-4 md:px-auto justify-center items-center px-8 max-w-5xl overflow-y-auto">
       <Router>
         <Route path="/" component={Home} />
         <Route path="/profile/" component={Profile} user="me" />
         <Route path="/profile/:user" component={Profile} />
       </Router>
     </main>
-    <Navigation />
+    <Navigation class="flex-none" />
   </div>
 );
 
