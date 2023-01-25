@@ -16,13 +16,13 @@ import { useState } from "preact/hooks";
 const App = () => {
   const [url, setUrl] = useState<string>();
   return (
-    <div class="h-screen flex flex-col gap-4">
+    <div class="h-screen flex flex-col">
       <Header class="flex-none" />
       <main
         class={
           url === "/scan"
             ? "flex-auto"
-            : "flex-auto flex py-4 md:px-auto justify-center items-center px-8 max-w-5xl overflow-y-auto"
+            : "flex-auto flex py-4 md:px-auto justify-center items-center px-8 max-w-5xl overflow-y-auto my-4"
         }
       >
         <Router onChange={(args) => setUrl(args.url)}>
