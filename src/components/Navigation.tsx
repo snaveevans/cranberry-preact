@@ -17,25 +17,25 @@ const Navigation = ({ class: className }: Props) => (
     )}
   >
     <nav class="flex h-full mx-auto">
-      <Link href="/" class={anchorClass} activeClassName="bg-transparent/40">
+      <Link href="/food" class={anchorClass} activeClassName="bg-transparent/40">
         Food
       </Link>
       <Link
-        href="/profile"
+        href="/hygiene"
         class={anchorClass}
         activeClassName="bg-transparent/40"
       >
         Hygiene
       </Link>
       <Link
-        href="/profile"
+        href="/makeup"
         class={anchorClass}
         activeClassName="bg-transparent/40"
       >
         Makeup
       </Link>
       <Link
-        href="/profile/john"
+        href="/cleaners"
         class={anchorClass}
         activeClassName="bg-transparent/40"
       >

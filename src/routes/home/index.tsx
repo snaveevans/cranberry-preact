@@ -1,4 +1,5 @@
 import { h } from "preact";
+import { Link } from "preact-router";
 
 const Home = () => {
   return (
@@ -9,19 +10,24 @@ const Home = () => {
       </header>
       <section class="mt-8 grid gap-4 lg:grid-cols-3 text-center">
         <Resource
-          title="Learn Preact"
-          description="If you're new to Preact, try the interactive tutorial to learn important concepts"
-          link="https://preactjs.com/tutorial/"
+          title="Food"
+          description="Search food ingredients"
+          link="/food"
         />
         <Resource
-          title="Differences to React"
-          description="If you're coming from React, check out our docs for where Preact differs"
-          link="https://preactjs.com/guide/v10/differences-to-react"
+          title="Hygiene"
+          description="Search hygiene ingredients"
+          link="/hygiene"
         />
         <Resource
-          title="Learn Preact-CLI"
-          description="To learn more about Preact-CLI, read through the ReadMe & Wiki"
-          link="https://github.com/preactjs/preact-cli#preact-cli--"
+          title="Makeup"
+          description="Search makeup ingredients"
+          link="/makeup"
+        />
+        <Resource
+          title="Cleaners"
+          description="Search cleaners ingredients"
+          link="/cleaners"
         />
       </section>
     </div>
@@ -36,13 +42,13 @@ interface ResourceProps {
 
 const Resource = (props: ResourceProps) => {
   return (
-    <a
+    <Link
       href={props.link}
       class="py-3 px-6 rounded text-left decoration-inherit no-underline text-white bg-neutral-900 border border-neutral-900 hover:border-white"
     >
       <h2>{props.title}</h2>
       <p>{props.description}</p>
-    </a>
+    </Link>
   );
 };
 
